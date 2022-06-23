@@ -1,0 +1,22 @@
+docker run -d --name nginx-investor-proxy -p 80:80 nginx:latest
+
+docker cp nginx-investor-proxy:/etc/nginx/conf.d/default.conf HOME_DIR/default.conf
+
+
+http://192.168.1.6:8081/currency/ruok
+
+
+location /currency{
+  proxy_pass http://192.168.1.6:8081;
+}
+
+docker cp HOME_DIR/default.conf nginx-investor-proxy:/etc/nginx/conf.d/
+
+
+docker exec nginx-investor-proxy nginx -t
+
+docker exec nginx-investor-proxy nginx -s reload
+
+
+
+https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Docker-Nginx-reverse-proxy-setup-example
